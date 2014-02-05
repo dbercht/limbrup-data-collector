@@ -30,13 +30,13 @@ exports.get = function(req, res) {
 
 exports.create = function(req, res) {
   utils.query(res,
-      { 
+    { 
     name : "create_type", 
     text: 'INSERT INTO types VALUES ($1, $2, $3)',
     values : [req.body.slug, req.body.name, req.body.description]
   },
   function(result) {
-    res.send(result.rows);
+    res.send({slug : req.body.slug, name : req.body.name, description : req.body.description});
   });
 };
 

@@ -39,7 +39,26 @@
       <label class='item item-input'>
         <textarea placeholder='Description...' ng-model="workout.description" rows="4"></textarea>
       </label>
-      <button class="button button-full button-positive" ng-click="submit()">
+      <button class="button button-full button-positive" ng-click="submitWorkout()">
+        Submit
+      </button>
+    </div>
+  </div>
+  </slide>
+  <slide>
+  <div class="box">
+    <h3>New Type</h3>
+    <div class="list">
+      <label class='item item-input'>
+        <input type='text' placeholder='slug...' ng-model="type.slug"></textarea>
+      </label>
+      <label class='item item-input'>
+        <input type='text' placeholder='name...' ng-model="type.name"></textarea>
+      </label>
+      <label class='item item-input'>
+        <textarea placeholder='Description...' ng-model="type.description" rows="4"></textarea>
+      </label>
+      <button class="button button-full button-positive" ng-click="submitType()">
         Submit
       </button>
     </div>

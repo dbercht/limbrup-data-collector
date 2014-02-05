@@ -17,15 +17,24 @@ angular.module('starter.controllers', [])
 })
 // A simple controller that fetches a list of data from a service
 .controller('NewWorkoutCtrl', function($scope, WorkoutsService, TypesService) {
-  $scope.submit = function() {
+  $scope.submitWorkout = function() {
     var workout = new WorkoutsService( $scope.workout );
     workout.$save(function() {
       $scope.created = true;
       $scope.workout = { description : "", type_slug : "" };
     });
   };
+  $scope.submitType = function() {
+    var type = new TypesService( $scope.type );
+    type.$save(function() {
+      $scope.created = true;
+      $scope.types.push($scope.type);
+      $scope.type = { description : "", slug : "", name : "" };
+    });
+  };
   $scope.types = TypesService.query();
   $scope.workout = { description : "", type_slug : "" };
+  $scope.type = { slug : "", name : "", description : "" };
   $scope.created = false;
 })
 

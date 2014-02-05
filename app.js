@@ -2,10 +2,13 @@ var express = require('express');
 var app = express();
 var workoutTypes = require('./routes/types.js');
 var workouts = require('./routes/workouts.js');
+var user = process.env.USER || "testUser";
+var pass = process.env.PW || "testPass";
+
 
 app.use(express.bodyParser());
 app.use(express.basicAuth(function(user, pass, callback) {
-  var result = (user === process.env.USER && pass === process.env.PW);
+  var result = (user === user && pass === pass);
   callback(null, result);
 }));
 
