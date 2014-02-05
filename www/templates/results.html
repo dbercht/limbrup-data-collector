@@ -6,9 +6,9 @@
 <view title="'Results'">
   <content has-header="true" has-tabs="true">
     <list>
-    <item>{{ results.length }} results</item> 
+    <div class="item item-divider">{{ results.length }} results</div> 
     <item ng-repeat="result in results" type="item-text-wrap">
-    <div class="row">
+    <div class="row" ng-click="openModal(result.result)">
       <div class="col col-10">
         <h2><span class="icon {{hasDone(result.id) ? 'ion-ios7-checkmark-outline balanced' : 'ion-ios7-circle-outline'}}"></span></h2>
       </div>

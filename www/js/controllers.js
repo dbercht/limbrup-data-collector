@@ -45,7 +45,7 @@ angular.module('starter.controllers', [])
 })
 
 // A simple controller that fetches a list of data from a service
-.controller('WorkoutResultsCtrl', function($scope, $stateParams, $cookieStore, WorkoutResultsService) {
+.controller('WorkoutResultsCtrl', function($scope, $stateParams, $cookieStore, WorkoutResultsService, $ionicModal) {
   $scope.results = WorkoutResultsService.query({ workoutId : $stateParams.id});
   $scope.hasDone = function(resultId) {
     var results = $cookieStore.get($stateParams.id);
@@ -53,6 +53,20 @@ angular.module('starter.controllers', [])
       return false;
     }
     return results[resultId] === true;
+  };
+  $ionicModal.fromTemplateUrl('templates/result.html', function(modal) {
+    $scope.modal = modal;
+  }, {
+    scope: $scope,
+    animation: 'slide-in-up'
+  });
+
+  $scope.openModal = function(result) {
+    $scope.viewResult = result;
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
   };
 })
 
