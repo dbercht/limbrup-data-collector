@@ -5,15 +5,13 @@ var workouts = require('./routes/workouts.js');
 
 app.use(express.bodyParser());
 app.use(express.basicAuth(function(user, pass, callback) {
-  var result = (user === 'testUser' && pass === 'testPass');
+  var result = (user === process.env.USER && pass === process.env.PW);
   callback(null, result);
 }));
 
 app.use(express.static(__dirname + '/www'));
 
-app.get('/', function(req, res) {
-    res.send('Hello World');
-});
+app.get('/', function(req, res) {});
 
 app.get('/types', workoutTypes.all);
 app.post('/types', workoutTypes.create);

@@ -1,5 +1,5 @@
 var pg = require('pg');
-var conString = "postgres://postgres:postgres@localhost:5432/postgres";
+var conString = process.env.PG_CON_STRING || "postgres://postgres:postgres@localhost:5432/postgres";
 
 exports.query = function(res, query, callback) {
   pg.connect(conString, function(err, client, done) {
