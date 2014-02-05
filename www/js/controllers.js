@@ -2,14 +2,19 @@ angular.module('starter.controllers', [])
 
 
 // A simple controller that fetches a list of data from a service
-.controller('StartCtrl', function($scope, $cookieStore, WorkoutsService) {
+.controller('StartCtrl', function($scope, $cookieStore, WorkoutsService, $location) {
+  if ($cookieStore.get('intro') !== true) {
+   $location.path('/tab/intro'); 
+  }
   $scope.workouts = WorkoutsService.query(function(){
   });
   $scope.hasDone = function(workoutId) {
     return $cookieStore.get(workoutId) === true
   };
 })
-
+.controller('IntroCtrl', function($cookieStore) {
+  $cookieStore.put('intro', true);
+})
 // A simple controller that fetches a list of data from a service
 .controller('NewWorkoutCtrl', function($scope, WorkoutsService, TypesService) {
   $scope.submit = function() {

@@ -28,7 +28,8 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
       url: '/intro',
       views: {
         'intro-tab': {
-          templateUrl: 'templates/intro.html'
+          templateUrl: 'templates/intro.html',
+          controller: 'IntroCtrl'
         }
       }
     })
