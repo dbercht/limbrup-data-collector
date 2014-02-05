@@ -6,6 +6,7 @@
 <view title="'Workouts'">
   <content has-header="true" has-tabs="true">
     <list>
+    <item><div class="row"><div class="col-50">{{ stats.workouts }} workouts</div><div class="row-50">{{ stats.results }} Results</div></div></item> 
     <item ng-repeat="workout in workouts" type="item-text-wrap" href="#/tab/workouts/{{workout.id}}">
     <div class="row">
       <div class="col col-10">

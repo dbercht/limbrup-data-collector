@@ -7,10 +7,16 @@ angular.module('starter.controllers', [])
    $location.path('/tab/intro'); 
   }
   $scope.workouts = WorkoutsService.query(function(){
+    $scope.stats.workouts = $scope.workouts.length;
+    $scope.stats.results = 0;
+    for (i = 0; i < $scope.workouts.length; i++) {
+      $scope.stats.results += parseInt($scope.workouts[i].results);
+    }
   });
   $scope.hasDone = function(workoutId) {
     return $cookieStore.get(workoutId) === true
-  };
+  }
+  $scope.stats = {};
 })
 .controller('IntroCtrl', function($cookieStore) {
   $cookieStore.put('intro', true);
