@@ -45,7 +45,7 @@ angular.module('starter.controllers', [])
 })
 
 // A simple controller that fetches a list of data from a service
-.controller('WorkoutResultsCtrl', function($scope, $stateParams, $cookieStore, WorkoutResultsService, $ionicModal) {
+.controller('WorkoutResultsCtrl', function($scope, $stateParams, $cookieStore, WorkoutResultsService) {
   $scope.results = WorkoutResultsService.query({ workoutId : $stateParams.id});
   $scope.hasDone = function(resultId) {
     var results = $cookieStore.get($stateParams.id);
@@ -54,32 +54,22 @@ angular.module('starter.controllers', [])
     }
     return results[resultId] === true;
   };
-  $ionicModal.fromTemplateUrl('templates/result.html', function(modal) {
-    $scope.modal = modal;
-  }, {
-    scope: $scope,
-    animation: 'slide-in-up'
-  });
-
-  $scope.openModal = function(result) {
-    $scope.viewResult = result;
-    $scope.modal.show();
-  };
-  $scope.closeModal = function() {
-    $scope.modal.hide();
-  };
 })
 
 // A simple controller that fetches a list of data from a service
 .controller('WorkoutCtrl', function($scope, $cookieStore, $stateParams, WorkoutsService, WorkoutResultsService) {
   $scope.workout = WorkoutsService.get({ workoutId : $stateParams.id}, function(){});
   $scope.change = function() { $scope.formValid = ($scope.result.value.length > 0); };
+  $scope.clear = function() {
+    $scope.result.value = '';
+  };
   $scope.submit = function() { 
     $scope.loading = true;
     var result = new WorkoutResultsService({ workoutId : $stateParams.id, result : $scope.result.value});
     result.$save( function(result) {
       $scope.loading = false;
       $scope.submitted = true;
+      $scope.workout.results = parseInt($scope.workout.results) + 1;
       var hasDone = $cookieStore.get($stateParams.id);
       if (hasDone === undefined) {
         hasDone = {};

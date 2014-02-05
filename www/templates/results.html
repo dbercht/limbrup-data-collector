@@ -1,22 +1,24 @@
 <!-- 
-  This template gets placed in the Pet tab's <nav-view> directive.
-  It was wired up in the app config (app.js) 
-  The 'pets' data comes from its $scope within PetIndexCtrl (controller.js)
+This template gets placed in the Pet tab's <nav-view> directive.
+It was wired up in the app config (app.js) 
+The 'pets' data comes from its $scope within PetIndexCtrl (controller.js)
 -->
 <view title="'Results'">
-  <content has-header="true" has-tabs="true">
-    <list>
-    <div class="item item-divider">{{ results.length }} results</div> 
-    <item ng-repeat="result in results" type="item-text-wrap">
-    <div class="row" ng-click="openModal(result.result)">
+<content has-header="true" has-tabs="true">
+<list>
+<div class="item item-divider">{{ results.length }} results</div> 
+<div class="card" ng-repeat='result in results'>
+  <div class="item item-text-wrap"> 
+    <div class="row">
       <div class="col col-10">
         <h2><span class="icon {{hasDone(result.id) ? 'ion-ios7-checkmark-outline balanced' : 'ion-ios7-circle-outline'}}"></span></h2>
       </div>
       <div class="col">
         <p> {{result.result}}</p> 
       </div>
-      </div>
-      </item>
-    </list>
-  </content>
+    </div>
+  </div>
+</div>
+</list>
+</content>
 </view>
