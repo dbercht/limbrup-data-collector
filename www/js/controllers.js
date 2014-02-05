@@ -9,13 +9,13 @@ angular.module('starter.controllers', [])
   $scope.workouts = WorkoutsService.query(function(){
     $scope.stats.workouts = $scope.workouts.length;
     $scope.stats.results = 0;
-    for (i = 0; i < $scope.workouts.length; i++) {
+    for (var i = 0; i < $scope.workouts.length; i++) {
       $scope.stats.results += parseInt($scope.workouts[i].results);
     }
   });
   $scope.hasDone = function(workoutId) {
-    return $cookieStore.get(workoutId) === true
-  }
+    return $cookieStore.get(workoutId) !== undefined; 
+  };
   $scope.stats = {};
 })
 .controller('IntroCtrl', function($cookieStore) {
@@ -45,21 +45,37 @@ angular.module('starter.controllers', [])
 })
 
 // A simple controller that fetches a list of data from a service
+.controller('WorkoutResultsCtrl', function($scope, $stateParams, $cookieStore, WorkoutResultsService) {
+  $scope.results = WorkoutResultsService.query({ workoutId : $stateParams.id});
+  $scope.hasDone = function(resultId) {
+    var results = $cookieStore.get($stateParams.id);
+    if (results === undefined) {
+      return false;
+    }
+    return results[resultId] === true;
+  };
+})
+
+// A simple controller that fetches a list of data from a service
 .controller('WorkoutCtrl', function($scope, $cookieStore, $stateParams, WorkoutsService, WorkoutResultsService) {
-  $scope.title = "How would you log...";
-  $scope.workout = WorkoutsService.get({ workoutId : $stateParams.id}, function(){
-  });
-  $scope.change = function() { $scope.formValid = ($scope.result.value.length > 0) }
+  $scope.workout = WorkoutsService.get({ workoutId : $stateParams.id}, function(){});
+  $scope.change = function() { $scope.formValid = ($scope.result.value.length > 0); };
   $scope.submit = function() { 
     $scope.loading = true;
     var result = new WorkoutResultsService({ workoutId : $stateParams.id, result : $scope.result.value});
-    result.$save( function() {
+    result.$save( function(result) {
       $scope.loading = false;
       $scope.submitted = true;
-      $cookieStore.put($stateParams.id, true);
+      var hasDone = $cookieStore.get($stateParams.id);
+      if (hasDone === undefined) {
+        hasDone = {};
+      }
+      hasDone[result.id] = true;
+      $cookieStore.put($stateParams.id, hasDone);
     });
   };
+
   $scope.result = { value : "" };
   $scope.formValid = false;
   $scope.submitted = false;
-})
+});

@@ -4,7 +4,7 @@
   The PetCtrl pulls data from the Pets service (service.js)
   The Pets service returns an array of pet data
 -->
-<view title="title">
+<view title="'Workout'">
   <content has-header="true" padding="true">
     <h4 class="text-center">The workout is...</h4>
     <p class="text-center" style="white-space: pre;">{{ workout.description }}</p>
@@ -20,10 +20,10 @@
         <p ng-if="loading" class="text-center"><span class="icon ion-loading-c"></span> Saving</p>
         <span ng-if="!loading">Submit</span>
       </button>
-      <p><a class="button button-full icon ion-arrow-left-b" href="#/tab/start"> All Workouts</a></p>
     </div>
     <div ng-if="submitted">
       <p><a class="button button-full icon ion-ios7-checkmark-empty balanced" href="#/tab/start"> Saved result! Back to main menu</a></p>
     </div>
+    <p><a class="button button-full" href="#/tab/workouts/{{workout.id}}/results"> See ({{workout.results}}) Results</a></p>
   </content>
 </view>

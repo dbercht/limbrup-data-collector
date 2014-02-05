@@ -65,6 +65,17 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
           controller: 'WorkoutCtrl'
         }
       }
+    })
+    
+    // the pet tab has its own child nav-view and history
+    .state('tab.results', {
+      url: '/workouts/:id/results',
+      views: {
+        'start-tab': {
+          templateUrl: 'templates/results.html',
+          controller: 'WorkoutResultsCtrl'
+        }
+      }
     });
 
   // if none of the above states are matched, use this as the fallback

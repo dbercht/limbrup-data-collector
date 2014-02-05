@@ -44,7 +44,7 @@ exports.getResults = function(req, res) {
   utils.query(res,
       { 
     name : "get_results", 
-    text: 'SELECT workout_results.result FROM workout_results WHERE workout_results.workout_id = $1',
+    text: 'SELECT workout_results.result, workout_results.id FROM workout_results WHERE workout_results.workout_id = $1 ORDER BY workout_results.id DESC',
     values : [req.params.id]
   },
   function(result) {
