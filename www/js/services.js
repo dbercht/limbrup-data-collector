@@ -24,63 +24,12 @@ angular.module('starter.services', [])
     }
   }
 })
-.factory('TypeService' , function($resource) {
-  var types = [
-    { name : "As Many Rounds As Possible",
-      description : "Accomplish as many rounds/repetitions as possible in a given timeframe",
-      alias : ["AMRAP", "as many reps as possible"],
-      slug : "amrap"
-    },
-    {
-      name : "Rounds for time",
-      description : "Complete x rounds of a circuit for time",
-      alias : ['xRFT', 'AFAP'],
-      slug : "xrft"
-    },
-    {
-      name : "Set",
-      description : "Accomplish x sets of a set of movement/repetitions",
-      alias : [],
-      slug : "set"
-    },
-    {
-      name : 'x Rep Max',
-      description : 'Do x repetitions of a movement of the max weight',
-      alias : ['xRM'],
-      slug : "xrm"
-    },
-    {
-      name : 'Rep Scheme',
-      description : "21-15-9, 10-9-8-7-..., varying reps of a given circuit",
-      alias : ["x-y-z"],
-      slug : "x-y-z"
-    },
-    {
-      name : "Tabata",
-      description : "20 sec work, 10 sec rest, 8 times",
-      alias : [],
-      slug : "tabata"  
-    },
-    {
-      name : "Every Minute on the Minute",
-      description : "Every minute on the minute, do something. Can vary odd/even",
-      alias : ['emotm', 'emom'],
-      slug : "tabata"
-    }
-  ];
-  return {
-    query: function() {
-      return { code : 200, data : types };
-    },
-    get: function(slug) {
-      // Simple index lookup
-      for (var i = 0; i < types.length; i++) {
-        if (slug === types[i].slug) {
-          return types[i];
-        }
-      }
-      return {};
-    }
-  }
+.factory('TypesService' , function($resource) {
+  return $resource("/types"); 
 })
-;
+.factory('WorkoutsService' , function($resource) {
+  return $resource("/workouts/:workoutId"); 
+})
+.factory('WorkoutResultsService' , function($resource) {
+  return $resource("/workouts/:workoutId/results", { workoutId : '@workoutId'} );
+});

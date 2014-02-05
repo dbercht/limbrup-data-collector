@@ -1,0 +1,29 @@
+<!--
+  This template loads for the 'tab.pet-detail' state (app.js)
+  'pet' is a $scope variable created in the PetCtrl controller (controllers.js)
+  The PetCtrl pulls data from the Pets service (service.js)
+  The Pets service returns an array of pet data
+-->
+<view title="title">
+  <content has-header="true" padding="true">
+    <h4 class="text-center">The workout is...</h4>
+    <p class="text-center" style="white-space: pre;">{{ workout.description }}</p>
+    <hr /> 
+    <div ng-if="!submitted">
+      <p class="text-center">Please log a realistic result for this.</p>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <textarea type="text" ng-model="result.value" placeholder="Try logging using your phone's speech-to-text mechanism..." rows="4" ng-change="change()"></textarea>
+        </label>
+      </div>
+      <button class="button button-full button-positive" ng-disabled="!formValid" ng-click="submit()">
+        <p ng-if="loading" class="text-center"><span class="icon ion-loading-c"></span> Saving</p>
+        <span ng-if="!loading">Submit</span>
+      </button>
+      <p><a class="button button-full icon ion-arrow-left-b" href="#/tab/start"> All Workouts</a></p>
+    </div>
+    <div ng-if="submitted">
+      <p><a class="button button-full icon ion-ios7-checkmark-empty balanced" href="#/tab/start"> Saved result! Back to main menu</a></p>
+    </div>
+  </content>
+</view>

@@ -6,3 +6,11 @@
   width: 96px;
   height: 96px;
 }
+
+body{
+  color: #555;
+}
+
+.hide-slider-pager .slider-pager {
+  display: none;
+  }

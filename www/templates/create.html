@@ -1,0 +1,50 @@
+<!--
+  This template loads for the 'tab.pet-detail' state (app.js)
+  'pet' is a $scope variable created in the PetCtrl controller (controllers.js)
+  The PetCtrl pulls data from the Pets service (service.js)
+  The Pets service returns an array of pet data
+-->
+<view title="title">
+  <content has-header="true" padding="true">
+  <slide-box class="hide-slider-pager">
+  <slide>
+  <div class="box">
+    <h2>About</h2>
+    <p>
+    This is an application built to collect information on how athletes log their workouts :)
+    </p>
+    <p>
+    We want to build the next-generation method of logging your workouts...<br />By speaking to your phone.
+    </p>
+    <p>
+    So when 'logging' your workout, try and speak to the phone. <br />Remember that the speech-to-text might not be super intelligent. 
+    </p>
+  </div>
+  </slide>
+  <slide>
+  <div class="box">
+    <h2>Stay tuned</h2>
+  </div>
+  </slide>
+  <slide>
+  <div class="box">
+    <h2 style="color:white;">Go away</h2>
+  </div>
+  </slide>
+  <slide>
+  <div class="box">
+    <h3>New Workout</h3>
+    <div class="list">
+      <select ng-model="workout.type_slug" required ng-options="type.slug as type.name for type in types"></select> 
+      <label class='item item-input'>
+        <textarea placeholder='Description...' ng-model="workout.description" rows="4"></textarea>
+      </label>
+      <button class="button button-full button-positive" ng-click="submit()">
+        Submit
+      </button>
+    </div>
+  </div>
+  </slide>
+  </slide-box>
+  </content>
+</view>

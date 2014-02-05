@@ -2,17 +2,44 @@ angular.module('starter.controllers', [])
 
 
 // A simple controller that fetches a list of data from a service
-.controller('PetIndexCtrl', function($scope, $resource, PetService) {
-  // "Pets" is a service returning mock data (services.js)
-  $scope.pets = PetService.all();
-  $resource('/secret').get({}, function(response) {
-    console.log(response);
+.controller('StartCtrl', function($scope, $cookieStore, WorkoutsService) {
+  $scope.workouts = WorkoutsService.query(function(){
   });
+  $scope.hasDone = function(workoutId) {
+    return $cookieStore.get(workoutId) === true
+  };
 })
 
+// A simple controller that fetches a list of data from a service
+.controller('NewWorkoutCtrl', function($scope, WorkoutsService, TypesService) {
+  $scope.submit = function() {
+    var workout = new WorkoutsService( $scope.workout );
+    workout.$save(function() {
+      $scope.created = true;
+      $scope.workout = { description : "", type_slug : "" };
+    });
+  };
+  $scope.types = TypesService.query();
+  $scope.workout = { description : "", type_slug : "" };
+  $scope.created = false;
+})
 
-// A simple controller that shows a tapped item's data
-.controller('PetDetailCtrl', function($scope, $stateParams, PetService) {
-  // "Pets" is a service returning mock data (services.js)
-  $scope.pet = PetService.get($stateParams.petId);
-});
+// A simple controller that fetches a list of data from a service
+.controller('WorkoutCtrl', function($scope, $cookieStore, $stateParams, WorkoutsService, WorkoutResultsService) {
+  $scope.title = "How would you log...";
+  $scope.workout = WorkoutsService.get({ workoutId : $stateParams.id}, function(){
+  });
+  $scope.change = function() { $scope.formValid = ($scope.result.value.length > 0) }
+  $scope.submit = function() { 
+    $scope.loading = true;
+    var result = new WorkoutResultsService({ workoutId : $stateParams.id, result : $scope.result.value});
+    result.$save( function() {
+      $scope.loading = false;
+      $scope.submitted = true;
+      $cookieStore.put($stateParams.id, true);
+    });
+  };
+  $scope.result = { value : "" };
+  $scope.formValid = false;
+  $scope.submitted = false;
+})

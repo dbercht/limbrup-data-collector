@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', 'ngResource'])
+angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', 'ngResource', 'ngRoute', 'ngCookies'])
 
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -24,46 +24,50 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers', '
     })
 
     // the pet tab has its own child nav-view and history
-    .state('tab.pet-index', {
-      url: '/pets',
+    .state('tab.intro', {
+      url: '/intro',
       views: {
-        'pets-tab': {
-          templateUrl: 'templates/pet-index.html',
-          controller: 'PetIndexCtrl'
+        'intro-tab': {
+          templateUrl: 'templates/intro.html'
         }
       }
     })
 
-    .state('tab.pet-detail', {
-      url: '/pet/:petId',
+    // the pet tab has its own child nav-view and history
+    .state('tab.start', {
+      url: '/start',
       views: {
-        'pets-tab': {
-          templateUrl: 'templates/pet-detail.html',
-          controller: 'PetDetailCtrl'
+        'start-tab': {
+          templateUrl: 'templates/index.html',
+          controller: 'StartCtrl'
         }
       }
     })
 
-    .state('tab.adopt', {
-      url: '/adopt',
-      views: {
-        'adopt-tab': {
-          templateUrl: 'templates/adopt.html'
-        }
-      }
-    })
-
+    // the pet tab has its own child nav-view and history
     .state('tab.about', {
       url: '/about',
       views: {
         'about-tab': {
-          templateUrl: 'templates/about.html'
+          templateUrl: 'templates/create.html',
+          controller: 'NewWorkoutCtrl'
+        }
+      }
+    })
+    
+    // the pet tab has its own child nav-view and history
+    .state('tab.workout', {
+      url: '/workouts/:id',
+      views: {
+        'start-tab': {
+          templateUrl: 'templates/workout.html',
+          controller: 'WorkoutCtrl'
         }
       }
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/pets');
+  $urlRouterProvider.otherwise('/tab/start');
 
 });
 
