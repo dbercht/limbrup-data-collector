@@ -27,7 +27,7 @@ angular.module('starter.controllers', [])
     var workout = new WorkoutsService( $scope.workout );
     workout.$save(function() {
       $scope.created = true;
-      $scope.workout = { description : "", type_slug : "" };
+      $scope.workout = { description : "", type_slug : "" , num_workouts: 0};
     });
   };
   $scope.submitType = function() {
@@ -39,7 +39,7 @@ angular.module('starter.controllers', [])
     });
   };
   $scope.types = TypesService.query();
-  $scope.workout = { description : "", type_slug : "" };
+  $scope.workout = { description : "", type_slug : "" , num_workouts: 0};
   $scope.type = { slug : "", name : "", description : "" };
   $scope.created = false;
 })

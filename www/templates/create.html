@@ -44,6 +44,9 @@
     <div class="list">
       <select ng-model="workout.type_slug" required ng-options="type.slug as type.name for type in types"></select> 
       <label class='item item-input'>
+        <input type="number" placeholde="Number of movements" ng-model="workout.num_movements" required ></input> 
+      </label>
+      <label class='item item-input'>
         <textarea placeholder='Description...' ng-model="workout.description" rows="4"></textarea>
       </label>
       <button class="button button-full button-positive" ng-click="submitWorkout()">

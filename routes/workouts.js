@@ -32,8 +32,8 @@ exports.create = function(req, res) {
   utils.query(res,
       { 
     name : "create_workout", 
-    text: 'INSERT INTO workouts (description, type_slug) VALUES ($1, $2) RETURNING id',
-    values : [req.body.description, req.body.type_slug] 
+    text: 'INSERT INTO workouts (description, type_slug, num_movements) VALUES ($1, $2, $3) RETURNING id',
+    values : [req.body.description, req.body.type_slug, req.body.num_movements] 
   },
   function(result) {
     res.send(result.rows[0]);
